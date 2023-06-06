@@ -89,13 +89,16 @@ $(document).ready(function() {
         },
         errorClass: 'text-danger',
         errorElement: 'div',
-        highlight: function(element, errorClass) {
+        highlight: function(element) {
             $(element).addClass('is-invalid');
             $(element).closest('.form-group').addClass('has-error');
         },
-        unhighlight: function(element, errorClass) {
+        unhighlight: function(element) {
             $(element).removeClass('is-invalid');
             $(element).closest('.form-group').removeClass('has-error');
+        },
+        invalidHandler: function() {
+            $("#submit-product-form").removeClass('disabled').removeAttr('disabled');
         },
         submitHandler: function(form) {
             const data = {

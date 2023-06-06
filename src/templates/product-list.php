@@ -18,7 +18,7 @@
 
     <div id="product-list" class="row">
         <?php foreach($products as $product): ?>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-4">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex">

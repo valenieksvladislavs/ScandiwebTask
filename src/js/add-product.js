@@ -116,9 +116,12 @@ $(document).ready(function() {
                 contentType: 'application/json',
                 data: JSON.stringify(data),
                 success: function() {
-                    window.location.href = "/products/list";
+                    $(".form-error").remove();
+                    $("#product-form").prepend(`<div class="alert alert-success fade show alert-animated" role="alert">Product successfully created</div>`);
+                    setTimeout(function () { window.location.href = "/products/list"; }, 1000);
                 },
                 error: function(xhr) {
+                    $("#submit-product-form").removeClass('disabled').removeAttr('disabled');
                     try {
                         const response = JSON.parse(xhr.responseText);
 
@@ -146,6 +149,7 @@ $(document).ready(function() {
     });
 
     $('#submit-product-form').click(function() {
+        $(this).addClass('disabled').attr('disabled', 'disabled');
         $('#product-form').submit();
     });
 });

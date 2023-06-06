@@ -1,0 +1,16 @@
+{
+    "name": "vladislavs/scandi-web-task",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "ScandiWebTask\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "vvalenieks",
+            "email": "valenieksvladislavs@gmail.com"
+        }
+    ],
+    "require": {}
+}

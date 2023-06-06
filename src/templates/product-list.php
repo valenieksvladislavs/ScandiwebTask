@@ -5,13 +5,10 @@
         </div>
         <div class="row g-2">
             <div class="col-auto">
-                <select id="products-actions" class="form-control">
-                    <option value="mass-delete">Mass Delete Action</option>
-                    <option value="add-product">Add Product Action</option>
-                </select>
+                <button id="mass-delete" class="btn btn-danger px-4">MASS DELETE</button>
             </div>
             <div class="col-auto">
-                <button id="apply-actions" class="btn btn-primary px-4">Apply</button>
+                <a href="/products/saveNew" class="btn btn-primary px-4">ADD</a>
             </div>
         </div>
     </div>
@@ -26,7 +23,7 @@
                                 <h5 class="card-title"><?= $product['name'] ?></h5>
                             </div>
                             <div>
-                                <input class="form-check-input delete-checkbox" type="checkbox" value="<?= $product['sku'] ?>" />
+                                <input class="delete-checkbox form-check-input" type="checkbox" value="<?= $product['sku'] ?>" />
                             </div>
                         </div>
                         <p class="card-text">

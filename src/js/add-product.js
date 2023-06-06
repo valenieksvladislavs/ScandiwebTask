@@ -119,9 +119,9 @@ $(document).ready(function() {
                 contentType: 'application/json',
                 data: JSON.stringify(data),
                 success: function() {
-                    $(".form-error").remove();
-                    $("#product-form").prepend(`<div class="alert alert-success fade show alert-animated" role="alert">Product successfully created</div>`);
-                    setTimeout(function () { window.location.href = "/products/list"; }, 1000);
+                    showSuccessNotification('#product-form', 'Product successfully created', function() {
+                        window.location.href = "/products/list";
+                    })
                 },
                 error: function(xhr) {
                     $("#submit-product-form").removeClass('disabled').removeAttr('disabled');
@@ -129,20 +129,20 @@ $(document).ready(function() {
                         const response = JSON.parse(xhr.responseText);
 
                         if (!response?.errors || !Array.isArray(response.errors) || !response.errors.length) {
-                            showFormError('#product-form', 'Something went wrong');
+                            showDangerNotification('#product-form', 'Something went wrong');
                             return;
                         }
 
                         response.errors.forEach(({ key, message }) => {
                             if (key === 'system') {
-                                showFormError('#product-form', message);
+                                showDangerNotification('#product-form', message);
                             } else {
                                 const validator = $('#product-form').validate();
                                 validator.showErrors({[key]: message});
                             }
                         });
                     } catch (__) {
-                        showFormError('#product-form', 'Something went wrong');
+                        showDangerNotification('#product-form', 'Something went wrong');
                     }
                 }
             });

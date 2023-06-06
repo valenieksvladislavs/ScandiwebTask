@@ -1,46 +1,37 @@
 $(document).ready(function() {
-    $('#apply-actions').click(function() {
-        const actionName = $('#products-actions').val();
+    $('#mass-delete').click(function() {
+        const values = [];
 
-        switch(actionName) {
-            case 'add-product':
-                window.location.href = "/products/saveNew";
-                break;
-            case 'mass-delete':
-                const values = [];
+        $('.delete-checkbox:checked').each(function() {
+            values.push($(this).val());
+        });
 
-                $('.delete-checkbox:checked').each(function() {
-                    values.push($(this).val());
-                });
+        $.ajax({
+            url: '/products/deleteMassApi',
+            type: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify(values),
+            success: function() {
+                showSuccessNotification('#product-list', 'Selected products successfully removed', function() {
+                    location.reload();
+                })
+            },
+            error: function(xhr) {
+                try {
+                    const response = JSON.parse(xhr.responseText);
 
-                $.ajax({
-                    url: '/products/deleteMassApi',
-                    type: 'post',
-                    contentType: 'application/json',
-                    data: JSON.stringify(values),
-                    success: function() {
-                        location.reload();
-                    },
-                    error: function(xhr) {
-                        try {
-                            const response = JSON.parse(xhr.responseText);
-
-                            if (!response?.errors || !Array.isArray(response.errors) || !response.errors.length) {
-                                showFormError('#product-list', 'Something went wrong');
-                                return;
-                            }
-
-                            response.errors.forEach(({ key, message }) => {
-                                showFormError('#product-list', message);
-                            });
-                        } catch (__) {
-                            showFormError('#product-list', 'Something went wrong');
-                        }
+                    if (!response?.errors || !Array.isArray(response.errors) || !response.errors.length) {
+                        showDangerNotification('#product-list', 'Something went wrong');
+                        return;
                     }
-                });
-                break;
-            default:
-                break;
-        }
+
+                    response.errors.forEach(({ message }) => {
+                        showDangerNotification('#product-list', message);
+                    });
+                } catch (__) {
+                    showDangerNotification('#product-list', 'Something went wrong');
+                }
+            }
+        });
     });
 });

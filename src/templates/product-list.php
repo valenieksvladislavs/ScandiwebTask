@@ -25,7 +25,9 @@
                             <div class="flex-fill">
                                 <h5 class="card-title"><?= $product['name'] ?></h5>
                             </div>
-                            <input class="form-check-input delete-checkbox" type="checkbox" value="<?= $product['sku'] ?>" />
+                            <div>
+                                <input class="form-check-input delete-checkbox" type="checkbox" value="<?= $product['sku'] ?>" />
+                            </div>
                         </div>
                         <p class="card-text">
                             SKU: <?= $product['sku'] ?><br>

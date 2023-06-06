@@ -35,7 +35,7 @@
                             <?php elseif ($product['type'] === 'DVDDisc'): ?>
                                 Size: <?= $product['size'] ?>MB
                             <?php elseif ($product['type'] === 'Furniture'): ?>
-                                Dimension: <?= $product['height'] ?>x<?= $product['length'] ?>x<?= $product['width'] ?>
+                                Dimension: <?= $product['height'] ?>x<?= $product['width'] ?>x<?= $product['length'] ?>mm
                             <?php endif; ?>
                         </p>
                     </div>

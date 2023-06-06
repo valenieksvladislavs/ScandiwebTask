@@ -1,46 +1,55 @@
 $(document).ready(function() {
     const productTypeToFieldMapping = {
-        'Book': [
-            {
-                name: 'weight',
-                label: 'Weight(kg)',
-                type: 'number',
-                rules: { required: true, number: true },
-                messages: { required: 'Please specify book weight', number: 'Book weight should be a number' }
-            },
-        ],
-        'DVDDisc': [
-            {
-                name: 'size',
-                label: 'Size(mb)',
-                type: 'number',
-                rules: { required: true, digits: true },
-                messages: { required: 'Please specify disc size', digits: 'Disk size must be an integer number' }
-            }
-        ],
-        'Furniture': [
-            {
-                name: 'height',
-                label: 'Height(mm)',
-                type: 'number',
-                rules: { required: true, digits: true },
-                messages: { required: 'Please specify furniture height', digits: 'Furniture height must be an integer number' }
-            },
-            {
-                name: 'length',
-                label: 'Length(mm)',
-                type: 'number',
-                rules: { required: true, digits: true },
-                messages: { required: 'Please specify furniture length', digits: 'Furniture length must be an integer number' }
-            },
-            {
-                name: 'width',
-                label: 'Width(mm)',
-                type: 'number',
-                rules: { required: true, digits: true },
-                messages: { required: 'Please specify furniture width', digits: 'Furniture width must be an integer number' }
-            }
-        ]
+        'Book': {
+            description: 'Please provide the book weight in kilograms',
+            fields: [
+                {
+                    name: 'weight',
+                    label: 'Weight(kg)',
+                    type: 'number',
+                    rules: { required: true, number: true },
+                    messages: { required: 'Please specify book weight', number: 'Book weight should be a number' }
+                },
+            ]
+        },
+        'DVDDisc': {
+            description: 'Please provide disk size in megabytes',
+            fields: [
+                {
+                    name: 'size',
+                    label: 'Size(mb)',
+                    type: 'number',
+                    rules: { required: true, digits: true },
+                    messages: { required: 'Please specify disc size', digits: 'Disk size must be an integer number' }
+                }
+            ]
+        },
+        'Furniture': {
+            description: 'Please provide dimensions in HxWxL format',
+            fields: [
+                {
+                    name: 'height',
+                    label: 'Height(mm)',
+                    type: 'number',
+                    rules: { required: true, digits: true },
+                    messages: { required: 'Please specify furniture height', digits: 'Furniture height must be an integer number' }
+                },
+                {
+                    name: 'width',
+                    label: 'Width(mm)',
+                    type: 'number',
+                    rules: { required: true, digits: true },
+                    messages: { required: 'Please specify furniture width', digits: 'Furniture width must be an integer number' }
+                },
+                {
+                    name: 'length',
+                    label: 'Length(mm)',
+                    type: 'number',
+                    rules: { required: true, digits: true },
+                    messages: { required: 'Please specify furniture length', digits: 'Furniture length must be an integer number' }
+                }
+            ]
+        }
     };
 
     $('#type').change(function() {
@@ -51,9 +60,9 @@ $(document).ready(function() {
         });
         additionalFields.empty();
 
-        const fields = productTypeToFieldMapping[type];
+        const additionalInfo = productTypeToFieldMapping[type];
 
-        fields.forEach(field => {
+        additionalInfo.fields.forEach(field => {
             additionalFields.append(`<div class="form-group row mt-4"><label for="${field.name}" class="col-sm-2 col-form-label">${field.label}</label><div class="col-sm-10"><input type="${field.type}" id="${field.name}" name="${field.name}" class="form-control" required></div></div>`);
             const addedField = $(`#${field.name}`);
             addedField.rules('add', {
@@ -61,6 +70,8 @@ $(document).ready(function() {
                 messages: field.messages
             });
         });
+
+        additionalFields.append(`<p class="mt-4">${additionalInfo.description}</p>`);
     });
 
     $('#product-form').validate({

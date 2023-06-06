@@ -24,6 +24,17 @@ class ProductsController extends BaseController
         return $this->render('product-list.php', ['title' => 'Product list', 'products' => $products]);
     }
 
+    public function actionGet(): string
+    {
+        $product = Product::getBySku($this->pdo, $_GET['sku'] ?? '');
+
+        if (!$product) {
+            return $this->actionNotFound();
+        }
+
+        return json_encode($product);
+    }
+
     public function actionSaveNew(): string
     {
         return $this->render('add-product.html', ['title' => 'Add new product']);
@@ -50,7 +61,9 @@ class ProductsController extends BaseController
     public function actionDeleteMassApi(): string
     {
         $skuList = $this->getJsonBody();
-        Product::massDelete($this->pdo, $skuList);
+        if (count($skuList) > 0) {
+            Product::massDelete($this->pdo, $skuList);
+        }
 
         return 'ok';
     }

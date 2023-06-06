@@ -15,7 +15,10 @@ class Router
     {
         $segments = explode('/', trim($route, '/'));
         $this->controllerName = $segments[0] ?? null;
-        $this->actionName = $segments[1] ?? 'index';
+
+        $actionWithGetParams = $segments[1] ?? 'index';
+        $actionParts = explode('?', $actionWithGetParams);
+        $this->actionName = $actionParts[0];
     }
 
     public function process(\PDO $pdo): string
@@ -36,7 +39,7 @@ class Router
         if (is_callable([$controller, $actionMethodName])) {
             return $controller->$actionMethodName();
         } else {
-            return $controller->notFound();
+            return $controller->actionNotFound();
         }
     }
 

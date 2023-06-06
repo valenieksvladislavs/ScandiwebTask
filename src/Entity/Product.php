@@ -51,7 +51,8 @@ abstract class Product
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$this->getSku(), $this->getName(), $this->getPrice(), $this->getType()]);
     }
-    public static function getBySku(\PDO $pdo, string $sku): ?Product
+
+    public static function getBySku(\PDO $pdo, string $sku): ?array
     {
         $sql = 'SELECT * FROM products WHERE sku = :sku';
         $stmt = $pdo->prepare($sql);
@@ -63,12 +64,7 @@ abstract class Product
             return null;
         }
 
-        $className = 'ScandiWebTask\\Entity\\' . $row['type'];
-        /** @var Product $product */
-        $product = new $className();
-        $product->setParameters($row);
-
-        return $product;
+        return $row;
     }
 
     public static function getAll(\PDO $pdo): array
@@ -85,22 +81,6 @@ abstract class Product
         $skuListStr = implode(',', array_map([$pdo, 'quote'], $skuList));
         $sql = "DELETE FROM products WHERE sku IN ($skuListStr)";
         $pdo->exec($sql);
-    }
-
-    public static function mapProduct(array $row): self
-    {
-        $className = $row['type'];
-        /** @var Product $product */
-        $product = new $className();
-        $product->setParameters($row);
-        return $product;
-    }
-
-    public static function mapProducts(array $rows): array
-    {
-        return array_map(function (array $row) {
-            return self::mapProduct($row);
-        }, $rows);
     }
 
     public abstract function getType(): string;

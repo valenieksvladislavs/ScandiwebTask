@@ -4,7 +4,6 @@ namespace ScandiWebTask;
 
 use ReflectionClass;
 use ScandiWebTask\Controller\BaseController;
-use ScandiWebTask\Controller\ProductsController;
 
 class Router
 {

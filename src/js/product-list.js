@@ -7,7 +7,7 @@ $(document).ready(function() {
         });
 
         $.ajax({
-            url: '/products/deleteMassApi',
+            url: '/product/deleteMassApi',
             type: 'post',
             contentType: 'application/json',
             data: JSON.stringify(values),

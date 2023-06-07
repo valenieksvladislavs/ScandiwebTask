@@ -6,7 +6,7 @@ use Exception;
 use ScandiWebTask\Entity\Product;
 use ScandiWebTask\FormException;
 
-class ProductsController extends BaseController
+class ProductController extends BaseController
 {
     public function actionIndex(): string
     {

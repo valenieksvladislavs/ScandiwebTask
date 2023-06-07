@@ -114,13 +114,13 @@ $(document).ready(function() {
             });
 
             $.ajax({
-                url: '/products/saveApi',
+                url: '/product/saveApi',
                 type: 'post',
                 contentType: 'application/json',
                 data: JSON.stringify(data),
                 success: function() {
                     showSuccessNotification('#product-form', 'Product successfully created', function() {
-                        window.location.href = "/products/list";
+                        window.location.href = "/product/list";
                     })
                 },
                 error: function(xhr) {

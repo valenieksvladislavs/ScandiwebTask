@@ -8,7 +8,7 @@
                 <button id="mass-delete" class="btn btn-danger px-4">MASS DELETE</button>
             </div>
             <div class="col-auto">
-                <a href="/products/saveNew" class="btn btn-primary px-4">ADD</a>
+                <a href="/product/saveNew" class="btn btn-primary px-4">ADD</a>
             </div>
         </div>
     </div>

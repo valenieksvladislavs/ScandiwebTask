@@ -8,6 +8,7 @@ use ScandiWebTask\Entity\DVDDisc;
 use ScandiWebTask\Entity\Furniture;
 use ScandiWebTask\Entity\Product;
 use ScandiWebTask\FormException;
+use ScandiWebTask\Validator\ProductValidator;
 
 class ProductController extends BaseController
 {
@@ -45,27 +46,18 @@ class ProductController extends BaseController
 
     public function actionSaveApi(): string
     {
-        $params = $this->getJsonBody();
+        $input = $this->getJsonBody();
 
-        $existingEntity = Product::getBySku($this->pdo, $params['sku']);
-        if ($existingEntity !== null) {
-            throw new FormException('sku', 'A product with the same sku already exists');
+        $validator = new ProductValidator();
+        if (!$validator->validate($this->pdo, $input)) {
+            $validator->handleErrors();
         }
 
-        $productTypeToClassMapping = [
-            'dvd' => DVDDisc::class,
-            'book' => Book::class,
-            'furniture' => Furniture::class
-        ];
-
-        $className = $productTypeToClassMapping[$params['productType']];
-        if (!$className) {
-            throw new FormException('productType', 'Invalid product type');
-        }
+        $className = Product::PRODUCT_TYPE_TO_CLASS_MAPPING[$input['productType']];
 
         /** @var Product $product */
         $product = new $className();
-        $product->setParameters($params);
+        $product->setParameters($input);
         $product->save($this->pdo);
 
         return 'ok';

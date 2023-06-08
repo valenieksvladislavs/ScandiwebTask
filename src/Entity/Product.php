@@ -3,6 +3,11 @@ namespace ScandiWebTask\Entity;
 
 abstract class Product
 {
+    const PRODUCT_TYPE_TO_CLASS_MAPPING = [
+        'dvd' => DVDDisc::class,
+        'book' => Book::class,
+        'furniture' => Furniture::class
+    ];
     private string $sku;
     private string $name;
     private string $price;

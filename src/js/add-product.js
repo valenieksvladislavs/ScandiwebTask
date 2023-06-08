@@ -79,13 +79,13 @@ $(document).ready(function() {
             'sku': 'required',
             'name': 'required',
             'price': 'required',
-            'type': 'required'
+            'productType': 'required'
         },
         messages: {
             'sku': 'Please specify product sku',
             'name': 'Please specify product name',
             'price': 'Please specify product price',
-            'type': 'Please specify product type',
+            'productType': 'Please specify product type',
         },
         errorClass: 'text-danger',
         errorElement: 'div',

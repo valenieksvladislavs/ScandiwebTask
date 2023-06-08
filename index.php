@@ -29,7 +29,7 @@ try {
     echo $router->process($pdo);
 } catch (FormException $e) {
     http_response_code(400);
-    echo json_encode(['errors' => [['key' => $e->getField(), 'message' => $e->getMessage()]]]);
+    echo json_encode(['errors' => $e->getErrors()]);
 } catch (Exception $e) {
     http_response_code(400);
     echo json_encode(['errors' => [['key' => 'system', 'message' => $e->getMessage()]]]);

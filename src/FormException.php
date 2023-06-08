@@ -8,7 +8,7 @@ use Throwable;
 class FormException extends Exception
 {
     function __construct(
-        private readonly string $field,
+        private readonly array $errors,
         string $message = "",
         int $code = 0,
         ?Throwable $previous = null
@@ -16,8 +16,8 @@ class FormException extends Exception
         parent::__construct($message, $code, $previous);
     }
 
-    public function getField(): string
+    public function getErrors(): array
     {
-        return $this->field;
+        return $this->errors;
     }
 }

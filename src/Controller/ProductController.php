@@ -3,6 +3,9 @@
 namespace ScandiWebTask\Controller;
 
 use Exception;
+use ScandiWebTask\Entity\Book;
+use ScandiWebTask\Entity\DVDDisc;
+use ScandiWebTask\Entity\Furniture;
 use ScandiWebTask\Entity\Product;
 use ScandiWebTask\FormException;
 
@@ -49,7 +52,17 @@ class ProductController extends BaseController
             throw new FormException('sku', 'A product with the same sku already exists');
         }
 
-        $className = 'ScandiWebTask\\Entity\\' . $params['type'];
+        $productTypeToClassMapping = [
+            'dvd' => DVDDisc::class,
+            'book' => Book::class,
+            'furniture' => Furniture::class
+        ];
+
+        $className = $productTypeToClassMapping[$params['productType']];
+        if (!$className) {
+            throw new FormException('productType', 'Invalid product type');
+        }
+
         /** @var Product $product */
         $product = new $className();
         $product->setParameters($params);

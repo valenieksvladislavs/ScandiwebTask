@@ -1,6 +1,6 @@
 $(document).ready(function() {
     const productTypeToFieldMapping = {
-        'Book': {
+        'book': {
             description: 'Please provide the book weight in kilograms',
             fields: [
                 {
@@ -12,7 +12,7 @@ $(document).ready(function() {
                 },
             ]
         },
-        'DVDDisc': {
+        'dvd': {
             description: 'Please provide disk size in megabytes',
             fields: [
                 {
@@ -24,7 +24,7 @@ $(document).ready(function() {
                 }
             ]
         },
-        'Furniture': {
+        'furniture': {
             description: 'Please provide dimensions in HxWxL format',
             fields: [
                 {
@@ -52,7 +52,7 @@ $(document).ready(function() {
         }
     };
 
-    $('#type').change(function() {
+    $('#productType').change(function() {
         const type = $(this).val();
         const additionalFields = $('#additional-fields');
         additionalFields.find('input').each(function() {
@@ -105,7 +105,7 @@ $(document).ready(function() {
                 sku: $('#sku').val(),
                 name: $('#name').val(),
                 price: $('#price').val(),
-                type: $('#type').val()
+                productType: $('#productType').val()
             };
 
             const additionalFields = $('#additional-fields');
